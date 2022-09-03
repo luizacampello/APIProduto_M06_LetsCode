@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIProdutos.Core\APIProdutos.Core.csproj" />
-    <ProjectReference Include="..\APIProdutos.Infra.Data\APIProdutos.Infra.Data.csproj" />
+    <ProjectReference Include="..\ApiClientes.Core\ApiClientes.Core.csproj" />
+    <ProjectReference Include="..\ApiClientes.Infra\ApiClientes.Infra.csproj" />
   </ItemGroup>
 
 </Project>

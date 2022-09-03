@@ -1,4 +1,4 @@
-namespace APIProdutos
+namespace APIProdutos.Core.Model
 {
     public class Produto
     {
