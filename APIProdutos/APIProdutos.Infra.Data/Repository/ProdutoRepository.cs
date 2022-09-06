@@ -19,10 +19,10 @@ namespace APIProdutos.Infra.Data.Repository
             var query = "SELECT * FROM Produtos";
 
             using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-            
+
             return conn.Query<Produto>(query).ToList();
         }
-        public bool InsertProduto(Produto produto)
+        public bool InserirProduto(Produto produto)
         {
             var query = "INSERT INTO Produtos VALUES (@descricao, @preco, @quantidade)";
 
@@ -34,10 +34,10 @@ namespace APIProdutos.Infra.Data.Repository
             });
 
             using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-            
+
             return conn.Execute(query, parameters) == 1;
         }
-        public bool DeleteProduto(long id)
+        public bool DeletarProduto(long id)
         {
             var query = "DELETE FROM Produtos WHERE id = @id";
 
@@ -48,26 +48,38 @@ namespace APIProdutos.Infra.Data.Repository
 
             return conn.Execute(query, parameters) == 1;
         }
-        public bool UpdateProduto(long id, Produto produto)
+        public bool AtualizarProduto(Produto produto)
         {
             var query = @"UPDATE Produtos set descricao = @descricao,
                           preco = @preco, quantidade = @quantidade
                           where id = @id";
 
-            produto.Id = id;
             var parameters = new DynamicParameters(produto);
 
             using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
             return conn.Execute(query, parameters) == 1;
         }
-        public Produto GetProduto(string descricao)
+        public Produto ConsultarProduto(string descricao)
         {
             var query = "SELECT * FROM Produtos where descricao = @descricao";
 
-            var parameters = new DynamicParameters(new 
-            { 
+            var parameters = new DynamicParameters(new
+            {
                 descricao
+            });
+
+            using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+
+            return conn.QueryFirstOrDefault<Produto>(query, parameters);
+        }
+        public Produto ConsultarProduto(long id)
+        {
+            var query = "SELECT * FROM Produtos where id = @id";
+
+            var parameters = new DynamicParameters(new
+            {
+                id
             });
 
             using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
