@@ -55,10 +55,18 @@ namespace APIProdutos.Infra.Data.Repository
                           where id = @id";
 
             var parameters = new DynamicParameters(produto);
+            try
+            {
+                using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
 
-            using var conn = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
+                return conn.Execute(query, parameters) == 1;
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Erro ao comunicar com banco, mensagem {ex.Message}, stack trace {ex.StackTrace}");
 
-            return conn.Execute(query, parameters) == 1;
+                return false;
+            }
         }
         public Produto ConsultarProduto(string descricao)
         {

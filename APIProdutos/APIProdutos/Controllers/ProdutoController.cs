@@ -1,7 +1,9 @@
 using APIProdutos.Core.Interface;
 using APIProdutos.Core.Model;
 using APIProdutos.Filters;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace APIProdutos.Controllers
 {
@@ -36,7 +38,7 @@ namespace APIProdutos.Controllers
 
         [HttpGet("/produto")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [TypeFilter(typeof(LogAuthorizationFilter))]
+        [EnableCors("PolicyCors")]
         public ActionResult<List<Produto>> ConsultarProdutos()
         {
             Console.WriteLine("Iniciando");
@@ -82,6 +84,7 @@ namespace APIProdutos.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ServiceFilter(typeof(GaranteProdutoExisteActionFilter))]
+        [TypeFilter(typeof(LogAuthorizationFilter))]
         public ActionResult<List<Produto>> DeleteProduto(long id)
         {
             Console.WriteLine("Iniciando");

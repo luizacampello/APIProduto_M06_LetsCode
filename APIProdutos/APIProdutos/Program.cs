@@ -5,8 +5,22 @@ using APIProdutos.Infra.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PolicyCors",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7179")
+                    .WithHeaders("x-teste")
+                    .WithMethods("GET", "POST");
 
+            //policy.AllowAnyOrigin();
+            //policy.AllowAnyHeader();
+            //policy.AllowAnyMethod();
+        });
+});
+
+// Add services to the container.
 builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
@@ -20,8 +34,7 @@ builder.Services.AddMvc(options =>
 {
     options.Filters.Add<LogResultFilter>();
     options.Filters.Add<GeneralExceptionFilter>();
-}
-);
+});
 
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -39,6 +52,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("PolicyCors");
 
 app.MapControllers();
 

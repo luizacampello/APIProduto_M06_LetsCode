@@ -20,11 +20,13 @@ namespace APIProdutos.Filters
             switch(context.Exception)
             {
                 case ArgumentNullException:
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status501NotImplemented;
-                    context.Result = new ObjectResult(problem);
+                    context.Result = new ObjectResult(problem)
+                    {
+                        StatusCode = StatusCodes.Status501NotImplemented
+                    };
                     break;
                 case DivideByZeroException:
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    problem.Status = StatusCodes.Status400BadRequest;
                     context.Result = new ObjectResult(problem);
                     break;
                 default:

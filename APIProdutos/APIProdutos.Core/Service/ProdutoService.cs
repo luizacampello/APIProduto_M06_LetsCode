@@ -24,27 +24,36 @@ namespace APIProdutos.Core.Service
         }
         public bool AtualizarProduto(long id, Produto produto)
         {
-            /*
             try
             {
                 produto = null;
                 produto.Id = id;
+                return _produtoRepository.AtualizarProduto(produto);
+            }
+            catch (NullReferenceException ex)
+            {
+                var mensagem = ex.Message;
+                var caminho = ex.StackTrace;
+                var teste = ex.TargetSite;
+                Console.WriteLine($"Valores nulos, mensagem {mensagem}, stack trace {caminho}, {teste}");
+
+                return false;
             }
             catch (Exception ex)
             {
                 var tipoExcecao = ex.GetType().Name;
                 var mensagem = ex.Message;
-                var caminho = ex.InnerException.StackTrace;
-                
+                var caminho = ex.StackTrace;
+
                 Console.WriteLine($"Tipo da exceção {tipoExcecao}, mensagem {mensagem}, stack trace {caminho}");
 
                 return false;
-            }*/
-            //produto = null;
 
-            produto.Id = id;
-
-            return _produtoRepository.AtualizarProduto(produto);
+            }
+            finally
+            {
+                Console.WriteLine("Bloco finally");
+            }
         }
         public Produto ConsultarProduto(string descricao)
         {

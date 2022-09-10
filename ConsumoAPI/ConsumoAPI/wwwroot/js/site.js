@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 function MyTestCors(host, uri, methodName, includeHeaders = false) {
     const resultSpan = document.getElementById('result');
-    const myHeaders = includeHeaders ? { 'x-amanda': 'text/plain' } : {};
+    const myHeaders = includeHeaders ? { 'x-teste': 'text/plain' } : {};
 
     fetch(`${host}${uri}`,
         {
