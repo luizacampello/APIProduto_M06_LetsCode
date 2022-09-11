@@ -1,7 +1,7 @@
-﻿using ApiClientes.Interface;
-using ApiClientes.Models;
+﻿using ApiClientes.Core.Interface;
+using ApiClientes.Core.Models;
 
-namespace ApiClientes.Services
+namespace ApiClientes.Core.Services
 {
     public class ClienteService : IClienteService
     {

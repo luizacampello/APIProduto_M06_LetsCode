@@ -1,7 +1,7 @@
+using ApiClientes.Core.Interface;
+using ApiClientes.Core.Services;
 using ApiClientes.Infra;
-using ApiClientes.Interface;
 using ApiClientes.Repository;
-using ApiClientes.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿using ApiClientes.Interface;
+﻿using ApiClientes.Core.Interface;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;

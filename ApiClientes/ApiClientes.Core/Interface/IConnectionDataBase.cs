@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace ApiClientes.Interface
+namespace ApiClientes.Core.Interface
 {
     public interface IConnectionDataBase
     {

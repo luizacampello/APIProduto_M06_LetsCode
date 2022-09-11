@@ -1,5 +1,5 @@
-﻿using ApiClientes.Interface;
-using ApiClientes.Models;
+﻿using ApiClientes.Core.Interface;
+using ApiClientes.Core.Models;
 using Dapper;
 
 namespace ApiClientes.Repository

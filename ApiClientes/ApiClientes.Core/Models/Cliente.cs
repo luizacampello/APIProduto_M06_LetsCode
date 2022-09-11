@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiClientes.Models
+namespace ApiClientes.Core.Models
 {
     public class Cliente
     {
@@ -13,14 +13,18 @@ namespace ApiClientes.Models
         [Required(ErrorMessage = "Nome é obrigatório")]
         public DateTime DataNascimento { get; set; }
         public int Idade { get; private set; }
+        
+        [Required]
+        public string Permissao { get; set; }
 
-        public Cliente(long id, string cpf, string nome, DateTime dataNascimento, int idade)
+        public Cliente(long id, string cpf, string nome, DateTime dataNascimento, int idade, string permissao)
         {
             Id = id;
             Cpf = cpf;
             Nome = nome;
             DataNascimento = dataNascimento;
             Idade = ObterIdade();
+            Permissao = permissao;
         }
 
         public int ObterIdade()
