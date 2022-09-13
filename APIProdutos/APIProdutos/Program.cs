@@ -31,15 +31,16 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["secretKey"]);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) //Adiciono o esquema de JWT Bearer
     .AddJwtBearer(options =>
     {
+        //Adiciona as opções de validação
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateIssuer = true, // para inativar a validação do issuer, informar false e remover ValidIssuer
+            ValidateAudience = true, // para inativar a validação da audience, informar false e remover ValidAudience
             ValidIssuer = "APIClientes.com",
             ValidAudience = "APIProdutos.com"
         };

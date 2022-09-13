@@ -12,7 +12,7 @@ namespace APIProdutos.Controllers
     [Consumes("application/json")]
     [Produces("application/json")]
     [TypeFilter(typeof(LogResourceFilter))]
-    [Authorize(Roles = "admin")]
+    [Authorize]
     public class ProdutoController : ControllerBase
     {
         public IProdutoService _produtoService;
@@ -26,7 +26,6 @@ namespace APIProdutos.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [AllowAnonymous]
         public ActionResult<Produto> GetProduto(string descricao)
         {
             var produtos = _produtoService.ConsultarProduto(descricao);
@@ -40,6 +39,7 @@ namespace APIProdutos.Controllers
         [HttpGet("/produto")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [EnableCors("PolicyCors")]
+        [Authorize(Roles = "admin")]
         public ActionResult<List<Produto>> ConsultarProdutos()
         {
             var teste = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "teste");
