@@ -1,9 +1,9 @@
 using APIProdutos.Core.Interface;
 using APIProdutos.Core.Model;
 using APIProdutos.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 
 namespace APIProdutos.Controllers
 {
@@ -12,6 +12,7 @@ namespace APIProdutos.Controllers
     [Consumes("application/json")]
     [Produces("application/json")]
     [TypeFilter(typeof(LogResourceFilter))]
+    [Authorize(Roles = "admin")]
     public class ProdutoController : ControllerBase
     {
         public IProdutoService _produtoService;
@@ -25,9 +26,9 @@ namespace APIProdutos.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         public ActionResult<Produto> GetProduto(string descricao)
         {
-            Console.WriteLine("Iniciando");
             var produtos = _produtoService.ConsultarProduto(descricao);
             if (produtos == null)
             {
@@ -41,7 +42,9 @@ namespace APIProdutos.Controllers
         [EnableCors("PolicyCors")]
         public ActionResult<List<Produto>> ConsultarProdutos()
         {
-            Console.WriteLine("Iniciando");
+            var teste = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "teste");
+
+            Console.WriteLine($"Iniciando - {teste}");
             return Ok(_produtoService.ConsultarProdutos());
         }
 

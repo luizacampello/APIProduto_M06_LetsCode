@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IConnectionDataBase, ConnectionDataBase>();
 
 var app = builder.Build();
